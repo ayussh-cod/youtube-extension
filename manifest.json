@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Logger",
+  "version": "1.0",
+  "description": "Logs thumbnails on YouTube",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "https://www.googleapis.com/",
+    "http://localhost:3000/*",
+    "storage",
+    "scripting",
+    "fileSystemProvider"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "icons": {},
+  "externally_connectable": {
+    "matches": ["*://localhost/*"]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["api/inject-script.js"],
+      "matches": ["http://localhost:3000/*"]
+    }
+  ],
+  "host_permissions": ["*://*/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/"],
+      "js": ["content/index.js"]
+    },
+    {
+      "matches": ["http://localhost:3000/*"],
+      "js": ["content/savedata.js"]
+    }
+  ]
+}
